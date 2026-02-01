@@ -1,3 +1,6 @@
+# Author: Viswanath Ponnuru
+# License: MIT
+
 from langchain_ollama import ChatOllama
 from langchain_core.tools import tool
 # Corrected: Import from langchain.agents for AgentExecutor compatibility
