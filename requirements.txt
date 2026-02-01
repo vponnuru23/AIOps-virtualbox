@@ -1,0 +1,6 @@
+psutil 
+langchain-ollama 
+langchain-core 
+langchain-community
+langgraph
+langchain==0.3.7
