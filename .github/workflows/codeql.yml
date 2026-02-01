@@ -1,0 +1,22 @@
+name: "AI Security Scan"
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  upload-sarif:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write  # Required to upload to Security tab
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # In a real CI, you would run your security_auditor.py here
+      # For now, we assume the file 'audit_results.sarif' exists in the repo
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: audit_results.sarif
+          category: "ollama-qwen-audit"
