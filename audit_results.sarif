@@ -1,61 +1,132 @@
 {
+  "$schema": "https://json.schemastore.org",
   "version": "2.1.0",
-  "tool": {
-    "name": "Python Security Audit Tool",
-    "version": "1.0"
-  },
-  "results": [
+  "runs": [
     {
-      "ruleId": "CWE-2001",
-      "level": "high",
-      "description": "Ensure that all inputs are validated and sanitized to prevent path traversal attacks.",
-      "location": {
-        "physicalLocation": {
-          "artifactLocation": {
-            "uri": "./aiops_monitor.py"
-          }
+      "tool": {
+        "driver": {
+          "name": "AI-Security-Auditor",
+          "version": "1.0.0",
+          "informationUri": "https://github.com",
+          "rules": []
         }
       },
-      "recommendation": "Validate the input parameters before using them in file operations."
-    },
-    {
-      "ruleId": "CWE-789",
-      "level": "medium",
-      "description": "Use parameterized queries or input validation when executing subprocess commands to prevent command injection.",
-      "location": {
-        "physicalLocation": {
-          "artifactLocation": {
-            "uri": "./aiops_monitor.py"
-          }
+      "results": [
+        {
+          "ruleId": "SEC001",
+          "message": {
+            "text": "The code imports necessary modules and defines two tools: get_system_metrics and analyze_system_health."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./aiops_monitor.py"
+                },
+                "region": {
+                  "startLine": 81
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC002",
+          "message": {
+            "text": "The get_system_metrics tool retrieves CPU, memory, and disk usage metrics using psutil."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./aiops_monitor.py"
+                },
+                "region": {
+                  "startLine": 92
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC003",
+          "message": {
+            "text": "The analyze_system_health tool parses the JSON string received from get_system_metrics and provides health recommendations based on CPU, memory, and disk usage."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./aiops_monitor.py"
+                },
+                "region": {
+                  "startLine": 103
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC004",
+          "message": {
+            "text": "The LLM is initialized with the 'llama3.1' model and temperature set to 0."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./aiops_monitor.py"
+                },
+                "region": {
+                  "startLine": 124
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC005",
+          "message": {
+            "text": "The tools are added to the agent executor, which will be used for executing the AI Ops system monitoring."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./aiops_monitor.py"
+                },
+                "region": {
+                  "startLine": 136
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC006",
+          "message": {
+            "text": "A continuous monitoring function is defined to execute the AI Ops system monitoring every 10 seconds."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./aiops_monitor.py"
+                },
+                "region": {
+                  "startLine": 147
+                }
+              }
+            }
+          ]
         }
-      },
-      "recommendation": "Use a library like `subprocess.run` with the `shell=False` parameter to prevent command injection."
-    },
-    {
-      "ruleId": "CWE-2015",
-      "level": "high",
-      "description": "Validate the deserialized data before using it to prevent deserialization attacks.",
-      "location": {
-        "physicalLocation": {
-          "artifactLocation": {
-            "uri": "./aiops_monitor.py"
-          }
-        }
-      },
-      "recommendation": "Use a library like `pickle` or `yaml` with strict parsing options to validate the data."
-    },
-    {
-      "ruleId": "CWE-310, CWE-312",
-      "level": "medium",
-      "description": "Use secure cryptographic functions like `secrets` for generating keys and use HTTPS for communication between the server and client to prevent man-in-the-middle attacks.",
-      "location": {
-        "physicalLocation": {
-          "artifactLocation": {
-            "uri": "./aiops_monitor.py"
-          }
-        }
-      },
-      "recommendation": "Use `secrets` for generating cryptographic keys and use HTTPS for secure communication."
+      ]
     }
   ]
 }
