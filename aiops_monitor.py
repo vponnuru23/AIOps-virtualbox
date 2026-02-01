@@ -54,26 +54,32 @@ tools = [get_system_metrics, analyze_system_health]
 
 # Fixed Prompt: ReAct agents require a specific structure (Tools, Thought, Action, etc.)
 # Using a standard ReAct template from LangChain Hub style
-
 prompt = PromptTemplate.from_template("""
 You are an AIOps system monitoring agent. 
 Monitor infrastructure health and provide proactive recommendations.
-Use tools to collect metrics and analyze system status.
 
+TOOLS:
+------
 You have access to the following tools:
 {tools}
 
-To use a tool, please use the following format:
+To use a tool, you MUST use the following format:
+
 Thought: Do I need to use a tool? Yes
 Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
+Action Input: the exact input to the action
 Observation: the result of the action
 
-When you call analyze_system_health, you MUST copy the exact JSON string you received from the Observation of get_system_metrics.
+... (this Thought/Action/Action Input/Observation can repeat N times)
 
-When you have a response for the user, or if you do not need to use a tool, you must use the format:
+When you have a final response, or if you do not need to use a tool, you MUST use the format:
+
 Thought: Do I need to use a tool? No
 Final Answer: [your response here]
+
+CRITICAL RULES:
+1. When using 'analyze_system_health', the 'Action Input' MUST be the EXACT JSON string received from the 'Observation' of 'get_system_metrics'.
+2. Do not explain the JSON or add text like "Observation:" inside the 'Action Input'.
 
 Query: {input}
 {agent_scratchpad}
